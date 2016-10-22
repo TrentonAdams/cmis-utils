@@ -3,3 +3,4 @@ cmis-utils.iml
 cmisfind.log
 node_modules/
 .idea/
+alfresco-rest.js
