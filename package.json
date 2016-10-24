@@ -10,8 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "cmis": "^0.3.0",
-    "fs": "0.0.2",
-    "node-rest-client": "^2.0.1",
+    "request": "^2.75.0",
     "winston": "^2.2.0"
   },
   "devDependencies": {
