@@ -17,7 +17,14 @@ var folderPath = '';
 var name = '';
 var attributes = "cmis:name, cmis:objectId";
 
-console.log(cmisUser);
+winston.add(winston.transports.File, {
+  filename: './file-utils.log',
+  level: logLevel
+});
+winston.remove(winston.transports.Console);
+winston.add(winston.transports.Console, {level: 'error'});
+
+//console.log(cmisUser);
 function help()
 {
   console.log('Incorrect usage:');
@@ -57,18 +64,9 @@ if (folderPath === '')
 }
 winston.log('info', 'searching path: ' + folderPath);
 
-winston.add(winston.transports.File, {
-  filename: './cmisfind.log',
-  level: logLevel
-});
-winston.remove(winston.transports.Console);
-winston.add(winston.transports.Console, {level: 'error'});
-
-
 var session = cmis.createSession(cmisUser.url);
 session.setCredentials(cmisUser.username, cmisUser.password);
-var repositories = session.loadRepositories().ok(function (data)
-{
+session.loadRepositories().ok(function (data) {
   winston.log('debug', '{data:', data, '}');
   // get the actual folder being searched
   session.getObjectByPath(folderPath).ok(function (data) {
