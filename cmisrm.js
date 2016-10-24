@@ -7,12 +7,11 @@
  */
 var fs = require("fs");
 var winston = require('winston');
-var logLevel = 'info';
+var logLevel = 'debug';
 // cmis-user.json format: {"username": "user", "password": "9cz0iiasf90ui"}
 
 var cmisUser = require("./cmis-user.json");
 var cmis = require('cmis');
-var url = 'https://banalf-test.athabascau.ca/alfresco/cmisbrowser';
 
 function help()
 {
@@ -36,13 +35,13 @@ if (objectId === '')
     process.exit();
 }
 
-winston.add(winston.transports.File, { filename: './cmisfind.log',
+winston.add(winston.transports.File, { filename: './cmis-utils.log',
     level: logLevel});
 winston.remove(winston.transports.Console);
 winston.add(winston.transports.Console, { level: 'error' });
 
 
-var session = cmis.createSession(url);
+var session = cmis.createSession(cmisUser.url);
 session.setCredentials(cmisUser.username, cmisUser.password);
 var repositories = session.loadRepositories().ok(function (data)
 {
