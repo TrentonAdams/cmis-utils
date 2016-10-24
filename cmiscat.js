@@ -17,7 +17,7 @@ var logLevel = 'info';
 var request = require('request');
 
 winston.add(winston.transports.File, {
-  filename: './file-utils.log',
+  filename: './cmis-utils.log',
   level: logLevel
 });
 winston.remove(winston.transports.Console);

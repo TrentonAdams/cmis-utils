@@ -18,7 +18,7 @@ var name = '';
 var attributes = "cmis:name, cmis:objectId";
 
 winston.add(winston.transports.File, {
-  filename: './file-utils.log',
+  filename: './cmis-utils.log',
   level: logLevel
 });
 winston.remove(winston.transports.Console);
