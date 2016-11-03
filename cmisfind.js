@@ -1,4 +1,4 @@
-#!/usr/local/node-v4.6.0-linux-x64/bin/node
+#!/usr/bin/node
 /*
  Also try...
  * var Promise = require("bluebird");
@@ -16,6 +16,7 @@ var maxdepth = -1;
 var folderPath = '';
 var name = '';
 var attributes = "cmis:name, cmis:objectId";
+var info = false;
 
 winston.add(winston.transports.File, {
   filename: './cmis-utils.log',
@@ -30,7 +31,7 @@ function help()
   console.log('Incorrect usage:');
   console.log(process.argv[1] +
       ' /Sites/site-name/documentLibrary/' +
-      ' [-maxdepth #] [-name SQL-like-query] [-loglevel info,error,debug] ');
+      ' [-maxdepth #] [-name SQL-like-query] [-loglevel info,error,debug] [-i #info] ');
 }
 
 process.argv.forEach(function (val, index, array)
@@ -52,6 +53,9 @@ process.argv.forEach(function (val, index, array)
         break;
       case '-loglevel':
         logLevel = array[index + 1];
+        break;
+      case '-i':
+        info = true;
         break;
     }
   }
@@ -84,7 +88,9 @@ session.loadRepositories().ok(function (data) {
       for (i = 0; i < data.results.length; i++)
       {
         winston.log('debug', data.results[i]);
-        console.log(data.results[i].succinctProperties['cmis:objectId']);
+        var properties = data.results[i].succinctProperties;
+        console.log(properties['cmis:objectId'] +
+            (info ? (" " + properties['cmis:name']):""));
       }
     }).notOk(function (data)
     {
