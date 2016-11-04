@@ -12,9 +12,12 @@ Contributions are encouraged; just fork it and request a merge.
 == Usage ==
 Running the commands without arguments will display help.
 
-git clone git@github.com:TrentonAdams/cmis-utils.git
-cd cmis-utils
-npm install
+First we must install node and npm from https://nodejs.org/en/download/.  The
+knowledge of how to do that comes from nodejs.org.
+
+ git clone git@github.com:TrentonAdams/cmis-utils.git
+ cd cmis-utils
+ npm install
 
 Configure the cmis-user.json as shown in the example.
 
