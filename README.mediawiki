@@ -1,0 +1,37 @@
+== Description ==
+We are trying to model unix file utilities.  Currently this includes...
+
+* find - finding files and outputting their workspace IDs to the console
+* ls - listing files, whether one file or a directory
+* rm - removing files based on a workspace ID
+* cat - concatenate a file using binary format, so as to maintain perfect checksum matching.
+
+The project is currently in it's infancy, and is mostly just hacked together.
+Contributions are encouraged; just fork it and request a merge.
+
+== Usage ==
+Running the commands without arguments will display help.
+
+git clone git@github.com:TrentonAdams/cmis-utils.git
+cd cmis-utils
+npm install
+
+Configure the cmis-user.json as shown in the example.
+
+ {
+   "username": "admin",
+   "password": "admin",
+   "url": "http://localhost:8080/alfresco/cmisbrowser"
+ }
+
+
+* node cmisfind.js /Sites/some-site -name '%.html'
+* node cmisls.js /Sites/some-site
+* node cmisrm.js "workspace://SpacesStore/3a2bcd68-aabc-42ed-8229-bf8237aa59b7;1.0"
+* node cmiscat.js "workspace://SpacesStore/3a2bcd68-aabc-42ed-8229-bf8237aa59b7;1.0"
+* node cmisfind.js /Sites/some-site -name '%.html' | while read -r file; do echo node cmisrm.js -v "$file"; done
+
+Note that rm and cat use workspace ids instead of paths for efficiency reasons.
+If you need to delete several thousand files, it would take longer to lookup the
+ID from the name and then delete it.  So, they are expected to take input from
+the find command.  There's nothing saying we can't make it support both though.
