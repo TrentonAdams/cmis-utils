@@ -83,7 +83,7 @@ session.loadRepositories().ok(function (data) {
         "        IN_TREE('" + data.succinctProperties['cmis:objectId'] +
         "') \n";
     winston.log('debug', query);
-    session.query(query, false).ok(function (data)
+    session.query(query, false, {maxItems: 50000}).ok(function (data)
     {
       for (i = 0; i < data.results.length; i++)
       {
